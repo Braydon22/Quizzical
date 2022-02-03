@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react"
+import TittlePage from "./TitlePage"
+import Quizzes from "./Quizzes";
 
-function App() {
+export default function App() {
+  const [onTittlePg, setOnTittlePg] = React.useState(true)
+  const [quizCategories, setQuizCategories] = React.useState([])
+  const [selectedCategory, setSelectedCategory] = React.useState(9) // default category, general knowledge
+
+  React.useEffect(() => {
+    fetch("https://opentdb.com/api_category.php")
+      .then(res => res.json())
+      .then(data => setQuizCategories(data.trivia_categories))
+
+  }, [])
+
+  function handleCategoryChange(event) {
+    setSelectedCategory(event.target.value)
+  }
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {onTittlePg 
+      ? <TittlePage 
+          startQuiz={()=> setOnTittlePg(false)} 
+          quizCategories={quizCategories} 
+          handleCategoryChange={handleCategoryChange} 
+        /> 
+      : <Quizzes currentCategory={selectedCategory} /> }
     </div>
   );
 }
 
-export default App;
