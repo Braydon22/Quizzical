@@ -1,4 +1,4 @@
-#About 
+# Quizzical
 Get different quizzes from variety of categories!!
 
 # Getting Started with Create React App
