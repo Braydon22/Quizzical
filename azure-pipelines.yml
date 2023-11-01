@@ -6,8 +6,7 @@
 trigger:
 - main
 
-pool:
-  vmImage: my-personal-agent
+pool: my-personal-agent
 steps:
 - task: NodeTool@0
   inputs:
